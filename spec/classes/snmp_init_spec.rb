@@ -61,7 +61,7 @@ describe 'snmp', :type => 'class' do
         )}
         # TODO add more contents for File[snmpd.conf]
         it 'should contain File[snmpd.conf] with expected contents' do
-          verify_contents(subject, 'snmpd.conf', [
+          verify_contents(catalogue, 'snmpd.conf', [
             'agentaddress udp:127.0.0.1:161,udp6:[::1]:161',
             'rocommunity public 127.0.0.1',
             'rocommunity6 public ::1',
@@ -89,7 +89,7 @@ describe 'snmp', :type => 'class' do
           :notify  => 'Service[snmpd]'
         )}
         it 'should contain File[snmpd.sysconfig] with contents "OPTIONS="-LS0-6d -Lf /dev/null -p /var/run/snmpd.pid""' do
-          verify_contents(subject, 'snmpd.sysconfig', [
+          verify_contents(catalogue, 'snmpd.sysconfig', [
             'OPTIONS="-LS0-6d -Lf /dev/null -p /var/run/snmpd.pid"',
           ])
         end
@@ -109,11 +109,11 @@ describe 'snmp', :type => 'class' do
           :group   => 'root',
           :path    => '/etc/snmp/snmptrapd.conf',
           :require => 'Package[snmpd]',
-          :notify  => 'Service[snmptrapd]'
+          :notify  => nil
         )}
         # TODO add more contents for File[snmptrapd.conf]
         it 'should contain File[snmptrapd.conf] with correct contents' do
-          verify_contents(subject, 'snmptrapd.conf', [
+          verify_contents(catalogue, 'snmptrapd.conf', [
             'doNotLogTraps no',
             'authCommunity log,execute,net public',
             'disableAuthorization no',
@@ -126,10 +126,10 @@ describe 'snmp', :type => 'class' do
           :group   => 'root',
           :path    => '/etc/sysconfig/snmptrapd',
           :require => 'Package[snmpd]',
-          :notify  => 'Service[snmptrapd]'
+          :notify  => nil
         )}
         it 'should contain File[snmptrapd.sysconfig] with contents "OPTIONS="-Lsd -p /var/run/snmptrapd.pid""' do
-          verify_contents(subject, 'snmptrapd.sysconfig', [
+          verify_contents(catalogue, 'snmptrapd.sysconfig', [
             'OPTIONS="-Lsd -p /var/run/snmptrapd.pid"',
           ])
         end
@@ -179,7 +179,7 @@ describe 'snmp', :type => 'class' do
         )}
         # TODO add more contents for File[snmpd.conf]
         it 'should contain File[snmpd.conf] with expected contents' do
-          verify_contents(subject, 'snmpd.conf', [
+          verify_contents(catalogue, 'snmpd.conf', [
             'agentaddress udp:127.0.0.1:161,udp6:[::1]:161',
             'rocommunity public 127.0.0.1',
             'rocommunity6 public ::1',
@@ -207,7 +207,7 @@ describe 'snmp', :type => 'class' do
           :notify  => 'Service[snmpd]'
         )}
         it 'should contain File[snmpd.sysconfig] with contents "SNMPDOPTS=\'-Lsd -Lf /dev/null -u snmp -g snmp -I -smux -p /var/run/snmpd.pid\'"' do
-          verify_contents(subject, 'snmpd.sysconfig', [
+          verify_contents(catalogue, 'snmpd.sysconfig', [
             'SNMPDRUN=yes',
             'SNMPDOPTS=\'-Lsd -Lf /dev/null -u snmp -g snmp -I -smux -p /var/run/snmpd.pid\'',
           ])
@@ -228,11 +228,11 @@ describe 'snmp', :type => 'class' do
           :group   => 'root',
           :path    => '/etc/snmp/snmptrapd.conf',
           :require => 'Package[snmpd]',
-          :notify  => 'Service[snmpd]'
+          :notify  => nil
         )}
         # TODO add more contents for File[snmptrapd.conf]
         it 'should contain File[snmptrapd.conf] with correct contents' do
-          verify_contents(subject, 'snmptrapd.conf', [
+          verify_contents(catalogue, 'snmptrapd.conf', [
             'doNotLogTraps no',
             'authCommunity log,execute,net public',
             'disableAuthorization no',
@@ -240,7 +240,7 @@ describe 'snmp', :type => 'class' do
         end
         it { should_not contain_file('snmptrapd.sysconfig') }
         it 'should contain File[snmpd.sysconfig] with contents "TRAPDOPTS=\'-Lsd -p /var/run/snmptrapd.pid\'"' do
-          verify_contents(subject, 'snmpd.sysconfig', [
+          verify_contents(catalogue, 'snmpd.sysconfig', [
             'TRAPDRUN=no',
             'TRAPDOPTS=\'-Lsd -p /var/run/snmptrapd.pid\'',
           ])
@@ -284,7 +284,7 @@ describe 'snmp', :type => 'class' do
         )}
         # TODO add more contents for File[snmpd.conf]
         it 'should contain File[snmpd.conf] with expected contents' do
-          verify_contents(subject, 'snmpd.conf', [
+          verify_contents(catalogue, 'snmpd.conf', [
             'agentaddress udp:127.0.0.1:161,udp6:[::1]:161',
             'rocommunity public 127.0.0.1',
             'rocommunity6 public ::1',
@@ -312,7 +312,7 @@ describe 'snmp', :type => 'class' do
           :notify  => 'Service[snmpd]'
         )}
         it 'should contain File[snmpd.sysconfig] with contents "SNMPD_LOGLEVEL="d""' do
-          verify_contents(subject, 'snmpd.sysconfig', [
+          verify_contents(catalogue, 'snmpd.sysconfig', [
             'SNMPD_LOGLEVEL="d"',
           ])
         end
@@ -332,11 +332,11 @@ describe 'snmp', :type => 'class' do
           :group   => 'root',
           :path    => '/etc/snmp/snmptrapd.conf',
           :require => 'Package[snmpd]',
-          :notify  => 'Service[snmptrapd]'
+          :notify  => nil
         )}
         # TODO add more contents for File[snmptrapd.conf]
         it 'should contain File[snmptrapd.conf] with correct contents' do
-          verify_contents(subject, 'snmptrapd.conf', [
+          verify_contents(catalogue, 'snmptrapd.conf', [
             'doNotLogTraps no',
             'authCommunity log,execute,net public',
             'disableAuthorization no',
@@ -394,7 +394,7 @@ describe 'snmp', :type => 'class' do
         )}
         # TODO add more contents for File[snmpd.conf]
         it 'should contain File[snmpd.conf] with expected contents' do
-          verify_contents(subject, 'snmpd.conf', [
+          verify_contents(catalogue, 'snmpd.conf', [
             'agentaddress udp:127.0.0.1:161,udp6:[::1]:161',
             'rocommunity public 127.0.0.1',
             'rocommunity6 public ::1',
@@ -428,11 +428,11 @@ describe 'snmp', :type => 'class' do
           :group   => 'wheel',
           :path    => '/usr/local/etc/snmp/snmptrapd.conf',
           :require => 'Package[snmpd]',
-          :notify  => 'Service[snmptrapd]'
+          :notify  => nil
         )}
         # TODO add more contents for File[snmptrapd.conf]
         it 'should contain File[snmptrapd.conf] with correct contents' do
-          verify_contents(subject, 'snmptrapd.conf', [
+          verify_contents(catalogue, 'snmptrapd.conf', [
             'doNotLogTraps no',
             'authCommunity log,execute,net public',
             'disableAuthorization no',
@@ -463,11 +463,11 @@ describe 'snmp', :type => 'class' do
       it { should contain_package('snmpd').with_ensure('absent') }
       it { should_not contain_class('snmp::client') }
       it { should contain_file('var-net-snmp').with_ensure('directory') }
-      it { should contain_file('snmpd.conf').with_ensure('absent') }
-      it { should contain_file('snmpd.sysconfig').with_ensure('absent') }
+      it { should contain_file('snmpd.conf').with_ensure('absent').without_notify }
+      it { should contain_file('snmpd.sysconfig').with_ensure('absent').without_notify }
       it { should contain_service('snmpd').with_ensure('stopped') }
-      it { should contain_file('snmptrapd.conf').with_ensure('absent') }
-      it { should contain_file('snmptrapd.sysconfig').with_ensure('absent') }
+      it { should contain_file('snmptrapd.conf').with_ensure('absent').without_notify }
+      it { should contain_file('snmptrapd.sysconfig').with_ensure('absent').without_notify }
       it { should contain_service('snmptrapd').with_ensure('stopped') }
     end
 
@@ -548,12 +548,16 @@ describe 'snmp', :type => 'class' do
       let(:params) {{ :service_ensure => 'stopped' }}
       it { should contain_service('snmpd').with_ensure('stopped') }
       it { should contain_service('snmptrapd').with_ensure('stopped') }
+      it { should contain_file('snmpd.conf').without_notify }
+      it { should contain_file('snmpd.sysconfig').without_notify }
     end
 
     describe 'trap_service_ensure => running' do
       let(:params) {{ :trap_service_ensure => 'running' }}
       it { should contain_service('snmpd').with_ensure('running') }
       it { should contain_service('snmptrapd').with_ensure('running') }
+      it { should contain_file('snmptrapd.conf').with_notify('Service[snmptrapd]') }
+      it { should contain_file('snmptrapd.sysconfig').with_notify('Service[snmptrapd]') }
     end
 
     describe 'service_ensure => stopped and trap_service_ensure => running' do
@@ -570,7 +574,7 @@ describe 'snmp', :type => 'class' do
       let(:params) {{ :snmpd_options => 'blah' }}
       it { should contain_file('snmpd.sysconfig') }
       it 'should contain File[snmpd.sysconfig] with contents "OPTIONS=\'blah\'"' do
-        verify_contents(subject, 'snmpd.sysconfig', [
+        verify_contents(catalogue, 'snmpd.sysconfig', [
           'OPTIONS="blah"',
         ])
       end
@@ -580,7 +584,7 @@ describe 'snmp', :type => 'class' do
       let(:params) {{ :snmptrapd_options => 'bleh' }}
       it { should contain_file('snmptrapd.sysconfig') }
       it 'should contain File[snmptrapd.sysconfig] with contents "OPTIONS=\'bleh\'"' do
-        verify_contents(subject, 'snmptrapd.sysconfig', [
+        verify_contents(catalogue, 'snmptrapd.sysconfig', [
           'OPTIONS="bleh"',
         ])
       end
@@ -589,7 +593,7 @@ describe 'snmp', :type => 'class' do
     describe 'com2sec => [ SomeString ]' do
       let(:params) {{ :com2sec => [ 'SomeString', ] }}
       it 'should contain File[snmpd.conf] with contents "com2sec SomeString"' do
-        verify_contents(subject, 'snmpd.conf', [
+        verify_contents(catalogue, 'snmpd.conf', [
           'com2sec SomeString',
         ])
       end
@@ -598,7 +602,7 @@ describe 'snmp', :type => 'class' do
     describe 'com2sec6 => [ SomeString ]' do
       let(:params) {{ :com2sec6 => [ 'SomeString', ] }}
       it 'should contain File[snmpd.conf] with contents "com2sec6 SomeString"' do
-        verify_contents(subject, 'snmpd.conf', [
+        verify_contents(catalogue, 'snmpd.conf', [
           'com2sec6 SomeString',
         ])
       end
@@ -607,7 +611,7 @@ describe 'snmp', :type => 'class' do
     describe 'groups => [ SomeString ]' do
       let(:params) {{ :groups => [ 'SomeString', ] }}
       it 'should contain File[snmpd.conf] with contents "groups SomeString"' do
-        verify_contents(subject, 'snmpd.conf', [
+        verify_contents(catalogue, 'snmpd.conf', [
           'group   SomeString',
         ])
       end
@@ -616,7 +620,7 @@ describe 'snmp', :type => 'class' do
     describe 'dlmod => [ SomeString ]' do
       let(:params) {{ :dlmod => [ 'SomeString', ] }}
       it 'should contain File[snmpd.conf] with contents "dlmod SomeString"' do
-        verify_contents(subject, 'snmpd.conf', [
+        verify_contents(catalogue, 'snmpd.conf', [
           'dlmod SomeString',
         ])
       end
@@ -625,7 +629,7 @@ describe 'snmp', :type => 'class' do
     describe 'openmanage_enable => true' do
         let(:params) {{ :openmanage_enable => true }}
         it 'should contain File[snmpd.conf] with contents "smuxpeer .1.3.6.1.4.1.674.10892.1"' do
-            verify_contents(subject, 'snmpd.conf', [
+            verify_contents(catalogue, 'snmpd.conf', [
                 'smuxpeer .1.3.6.1.4.1.674.10892.1',
             ])
         end
@@ -634,7 +638,7 @@ describe 'snmp', :type => 'class' do
     describe 'agentaddress => [ "1.2.3.4", "8.6.7.5:222" ]' do
       let(:params) {{ :agentaddress => ['1.2.3.4','8.6.7.5:222'] }}
       it 'should contain File[snmpd.conf] with contents "agentaddress 1.2.3.4,8.6.7.5:222"' do
-        verify_contents(subject, 'snmpd.conf', [
+        verify_contents(catalogue, 'snmpd.conf', [
           'agentaddress 1.2.3.4,8.6.7.5:222',
         ])
       end
@@ -643,7 +647,7 @@ describe 'snmp', :type => 'class' do
     describe 'do_not_log_tcpwrappers => "yes"' do
         let(:params) {{:do_not_log_tcpwrappers => 'yes'}}
         it 'should contain File[snmpd.conf] with contents "dontLogTCPWrappersConnects yes' do
-            verify_contents(subject, 'snmpd.conf', [
+            verify_contents(catalogue, 'snmpd.conf', [
                 'dontLogTCPWrappersConnects yes',
             ])
         end
@@ -652,7 +656,7 @@ describe 'snmp', :type => 'class' do
     describe 'snmptrapdaddr => [ "5.6.7.8", "2.3.4.5:3333" ]' do
       let(:params) {{ :snmptrapdaddr => ['5.6.7.8','2.3.4.5:3333'] }}
       it 'should contain File[snmptrapd.conf] with contents "snmpTrapdAddr 5.6.7.8,2.3.4.5:3333"' do
-        verify_contents(subject, 'snmptrapd.conf', [
+        verify_contents(catalogue, 'snmptrapd.conf', [
           'snmpTrapdAddr 5.6.7.8,2.3.4.5:3333',
         ])
       end
@@ -661,7 +665,7 @@ describe 'snmp', :type => 'class' do
     describe 'snmpd_config => [ "option 1", "option 2", ]' do
       let(:params) {{ :snmpd_config => [ 'option 1', 'option 2', ] }}
       it 'should contain File[snmpd.conf] with contents "option1" and "option 2"' do
-        verify_contents(subject, 'snmpd.conf', [
+        verify_contents(catalogue, 'snmpd.conf', [
           'option 1',
           'option 2',
         ])
@@ -671,7 +675,7 @@ describe 'snmp', :type => 'class' do
     describe 'snmptrapd_config => [ "option 3", "option 4", ]' do
       let(:params) {{ :snmptrapd_config => [ 'option 3', 'option 4', ] }}
       it 'should contain File[snmptrapd.conf] with contents "option 3" and "option 4"' do
-        verify_contents(subject, 'snmptrapd.conf', [
+        verify_contents(catalogue, 'snmptrapd.conf', [
           'option 3',
           'option 4',
         ])
@@ -695,8 +699,11 @@ describe 'snmp', :type => 'class' do
       end
       it { should contain_service('snmpd').with_ensure('running') }
       it { should_not contain_service('snmptrapd') }
+      it { should contain_file('snmpd.conf').with_notify('Service[snmpd]') }
+      it { should contain_file('snmpd.sysconfig').with_notify('Service[snmpd]') }
+      it { should contain_file('snmptrapd.conf').with_notify('Service[snmpd]') }
       it 'should contain File[snmpd.sysconfig] with contents "SNMPDRUN=no" and "TRAPDRUN=yes"' do
-        verify_contents(subject, 'snmpd.sysconfig', [
+        verify_contents(catalogue, 'snmpd.sysconfig', [
           'SNMPDRUN=no',
           'TRAPDRUN=yes',
         ])
@@ -707,7 +714,7 @@ describe 'snmp', :type => 'class' do
       let(:params) {{ :snmpd_options => 'blah' }}
       it { should contain_file('snmpd.sysconfig') }
       it 'should contain File[snmpd.sysconfig] with contents "SNMPDOPTS=\'blah\'"' do
-        verify_contents(subject, 'snmpd.sysconfig', [
+        verify_contents(catalogue, 'snmpd.sysconfig', [
           'SNMPDOPTS=\'blah\'',
         ])
       end
@@ -717,7 +724,7 @@ describe 'snmp', :type => 'class' do
       let(:params) {{ :snmptrapd_options => 'bleh' }}
       it { should contain_file('snmpd.sysconfig') }
       it 'should contain File[snmpd.sysconfig] with contents "TRAPDOPTS=\'bleh\'"' do
-        verify_contents(subject, 'snmpd.sysconfig', [
+        verify_contents(catalogue, 'snmpd.sysconfig', [
           'TRAPDOPTS=\'bleh\'',
         ])
       end
@@ -736,12 +743,15 @@ describe 'snmp', :type => 'class' do
       let(:params) {{ :service_ensure => 'stopped' }}
       it { should contain_service('snmpd').with_ensure('stopped') }
       it { should contain_service('snmptrapd').with_ensure('stopped') }
+      it { should contain_file('snmpd.conf').without_notify }
+      it { should contain_file('snmpd.sysconfig').without_notify }
     end
 
     describe 'trap_service_ensure => running' do
       let(:params) {{ :trap_service_ensure => 'running' }}
       it { should contain_service('snmpd').with_ensure('running') }
       it { should contain_service('snmptrapd').with_ensure('running') }
+      it { should contain_file('snmptrapd.conf').with_notify('Service[snmptrapd]') }
     end
 
     describe 'service_ensure => stopped and trap_service_ensure => running' do
@@ -758,7 +768,7 @@ describe 'snmp', :type => 'class' do
       let(:params) {{ :snmpd_options => 'blah' }}
       it { should contain_file('snmpd.sysconfig') }
       it 'should contain File[snmpd.sysconfig] with contents "SNMPD_LOGLEVEL="blah""' do
-        verify_contents(subject, 'snmpd.sysconfig', [
+        verify_contents(catalogue, 'snmpd.sysconfig', [
           'SNMPD_LOGLEVEL="blah"',
         ])
       end

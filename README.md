@@ -66,6 +66,7 @@ class { 'snmp':
   snmptrapdaddr       => [ 'udp:162', ],
   ro_community        => 'SeCrEt',
   service_ensure      => 'stopped',
+  service_enable      => false,
   trap_service_ensure => 'running',
   trap_service_enable => true,
   trap_handlers       => [

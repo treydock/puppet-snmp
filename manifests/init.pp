@@ -388,10 +388,19 @@ class snmp (
     $trapdrun = 'no'
   }
 
-  if $::osfamily != 'Debian' {
-    $snmptrapd_conf_notify = Service['snmptrapd']
+  if $service_ensure_real == 'running' {
+    $snmpd_conf_notify = Service['snmpd']
   } else {
-    $snmptrapd_conf_notify = Service['snmpd']
+    $snmpd_conf_notify = undef
+  }
+  if $trap_service_ensure_real == 'running' {
+    if $::osfamily != 'Debian' {
+      $snmptrapd_conf_notify = Service['snmptrapd']
+    } else {
+      $snmptrapd_conf_notify = Service['snmpd']
+    }
+  } else {
+    $snmptrapd_conf_notify = undef
   }
 
   if $real_manage_client {
@@ -434,7 +443,7 @@ class snmp (
     path    => $snmp::params::service_config,
     content => template('snmp/snmpd.conf.erb'),
     require => Package['snmpd'],
-    notify  => Service['snmpd'],
+    notify  => $snmpd_conf_notify,
   }
 
   if $::osfamily != 'FreeBSD' {
@@ -446,7 +455,7 @@ class snmp (
       path    => $snmp::params::sysconfig,
       content => template("snmp/snmpd.sysconfig-${::osfamily}.erb"),
       require => Package['snmpd'],
-      notify  => Service['snmpd'],
+      notify  => $snmpd_conf_notify,
     }
   }
 
@@ -470,7 +479,7 @@ class snmp (
       path    => $snmp::params::trap_sysconfig,
       content => template("snmp/snmptrapd.sysconfig-${::osfamily}.erb"),
       require => Package['snmpd'],
-      notify  => Service['snmptrapd'],
+      notify  => $snmptrapd_conf_notify,
     }
 
     service { 'snmptrapd':
